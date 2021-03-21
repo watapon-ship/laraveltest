@@ -1,0 +1,44 @@
+https://djangobrothers.com/blogs/django_docker/
+https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
+
+●初回
+cd C:\dockertest\laraveltest
+
+①仮想環境を作る
+
+# docker起動
+$ docker-compose up -d
+
+# phpコンテナに入ります
+$ docker-compose exec web bash
+
+# Laravelプロジェクト作成
+$ composer create-project "laravel/laravel=6" app-web
+$ composer create-project "laravel/laravel=6" app-bacth
+$ composer create-project "laravel/laravel=6" app-api
+
+●次回から
+cd C:\dockertest\laraveltest
+
+ビルド
+docker-compose up -d
+
+コンテナ確認
+docker-compose ps
+docker container ls
+
+コンテナを停止
+docker-compose stop
+
+コンテナを開始
+docker-compose start
+
+コンテナを終了
+docker-compose down
+
+
+イメージは残っているので削除
+docker image rm a624d888d69f
+
+IPを確認
+docker-machine ip

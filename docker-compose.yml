@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+# 作業環境
+  app:
+    build: ./lib/php
+    volumes:
+      - ./src:/work
+
+# Webサーバー
+  web:
+    image: nginx:1.18-alpine
+    ports:
+      - 10080:80
+    volumes:
+      - ./src:/work
+      - ./lib/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /work
+
+# DB環境
+  mysql:
+    build: ./lib/mysql
+    volumes:
+      - db-store:/var/lib/mysql
+
+# myadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+    links:
+      - mysql
+    ports:
+       - 8080:80
+    volumes:
+       - ./lib/phpmyadmin/sessions:/sessions
+
+volumes:
+  db-store:
