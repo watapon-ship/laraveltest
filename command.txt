@@ -1,44 +1,73 @@
 https://djangobrothers.com/blogs/django_docker/
 https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
 
-œ‰‰ñ
+â—åˆå›
 cd C:\dockertest\laraveltest
 
-‡@‰¼‘zŠÂ‹«‚ğì‚é
+â‘ ä»®æƒ³ç’°å¢ƒã‚’ä½œã‚‹
 
-# docker‹N“®
-$ docker-compose up -d
+# dockerèµ·å‹•
+# docker-compose build
+$ docker-compose up -d 
 
-# phpƒRƒ“ƒeƒi‚É“ü‚è‚Ü‚·
-$ docker-compose exec web bash
+# phpã‚³ãƒ³ãƒ†ãƒŠã«å…¥ã‚Šã¾ã™
+$ docker-compose exec workspace bash
 
-# LaravelƒvƒƒWƒFƒNƒgì¬
+# ä¸‹è¨˜ã§ç’°å¢ƒã‚’ç¢ºèª
+composer -V
+php -m
+
+# Laravelãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
 $ composer create-project "laravel/laravel=6" app-web
 $ composer create-project "laravel/laravel=6" app-bacth
 $ composer create-project "laravel/laravel=6" app-api
 
-œŸ‰ñ‚©‚ç
+# storageã®ãƒ‘ãƒ¼ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚’è¿½åŠ 
+chmod 777 -R /work/app-web/storage/
+chmod 777 -R /work/app-bacth/storage/
+chmod 777 -R /work/app-api/storage/
+
+
+# DB1ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+C:\dockertest\laraveltest>docker-compose exec db mysql -V
+mysql  Ver 8.0.23 for Linux on x86_64 (MySQL Community Server - GPL)
+
+# DBã‚¢ã‚¯ã‚»ã‚¹
+
+
+# DBãƒã‚¤ã‚°ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³
+php artisan migrate
+
+
+#ã‚¯ãƒªãƒ¼ãƒ³ã‚¢ãƒƒãƒ—
+$ docker-compose down --rmi all --volumes --remove-orphans
+docker-compose down --volumes
+$ docker-compose down --volumes --rmi all
+$ docker-compose up -d --build
+
+
+â—æ¬¡å›ã‹ã‚‰
 cd C:\dockertest\laraveltest
 
-ƒrƒ‹ƒh
+ãƒ“ãƒ«ãƒ‰
 docker-compose up -d
 
-ƒRƒ“ƒeƒiŠm”F
+ã‚³ãƒ³ãƒ†ãƒŠç¢ºèª
 docker-compose ps
 docker container ls
 
-ƒRƒ“ƒeƒi‚ğ’â~
+ã‚³ãƒ³ãƒ†ãƒŠã‚’åœæ­¢
 docker-compose stop
 
-ƒRƒ“ƒeƒi‚ğŠJn
+ã‚³ãƒ³ãƒ†ãƒŠã‚’é–‹å§‹
 docker-compose start
 
-ƒRƒ“ƒeƒi‚ğI—¹
+ã‚³ãƒ³ãƒ†ãƒŠã‚’çµ‚äº†
 docker-compose down
 
 
-ƒCƒ[ƒW‚Íc‚Á‚Ä‚¢‚é‚Ì‚Åíœ
+ã‚¤ãƒ¡ãƒ¼ã‚¸ã¯æ®‹ã£ã¦ã„ã‚‹ã®ã§å‰Šé™¤
 docker image rm a624d888d69f
 
-IP‚ğŠm”F
+IPã‚’ç¢ºèª
 docker-machine ip
