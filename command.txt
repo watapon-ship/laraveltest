@@ -1,5 +1,6 @@
 https://djangobrothers.com/blogs/django_docker/
 https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
+https://noumenon-th.net/programming/2020/02/09/laravel-6-vue-js/
 
 ●初回
 cd C:\dockertest\laraveltest
@@ -32,11 +33,28 @@ chmod 777 -R /work/app-api/storage/
 C:\dockertest\laraveltest>docker-compose exec db mysql -V
 mysql  Ver 8.0.23 for Linux on x86_64 (MySQL Community Server - GPL)
 
-# DBアクセス
-
 
 # DBマイグレーション
 php artisan migrate
+
+
+==試そうとしたがやめた==========================================-
+
+# vue.js
+docker-compose exec workspace bash
+composer require laravel/ui:1.*
+
+# Vue.jsで構築するためのファイル等を生成します。
+php artisan ui vue
+
+# mpmを追加
+curl -sL https://deb.nodesource.com/setup_6.x | bash - && \ 
+apt-get install -y nodejs
+
+# package.jsonの内容に依存したパッケージをインストールし、コンパイルします。(npmがない)
+npm install && npm run dev
+
+================================================================-
 
 
 #クリーンアップ
