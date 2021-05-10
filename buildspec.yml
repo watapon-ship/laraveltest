@@ -1,0 +1,30 @@
+version: 0.2
+env:
+  parameter-store:
+    REPOSITORY_URI: "BACKEND_REPOSITORY_URI"
+    IMAGE_TAG: "IMAGE_TAG"
+    IMAGE_NAME: "BACKEND_IMAGE_NAME"
+    DOCKERHUB_USER: "DOCKERHUB_USER"
+    DOCKERHUB_PASSWORD: "DOCKERHUB_PASSWORD"
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USER --password-stdin
+  build:
+    commands:
+      - echo Building the Docker image...
+      - pwd
+      - docker build -f deploy/Dockerfile -t $IMAGE_NAME .
+      - docker images
+      - docker tag $IMAGE_NAME:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
