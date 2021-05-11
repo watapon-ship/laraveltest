@@ -1,9 +1,9 @@
 version: 0.2
-env:
-  parameter-store:
-    REPOSITORY_URI: "BACKEND_REPOSITORY_URI"
-    IMAGE_TAG: "IMAGE_TAG"
-    IMAGE_NAME: "BACKEND_IMAGE_NAME"
+# env:
+#   parameter-store:
+#     REPOSITORY_URI: "BACKEND_REPOSITORY_URI"
+#     IMAGE_TAG: "IMAGE_TAG"
+#     IMAGE_NAME: "BACKEND_IMAGE_NAME"
 phases:
   install:
     runtime-versions:
